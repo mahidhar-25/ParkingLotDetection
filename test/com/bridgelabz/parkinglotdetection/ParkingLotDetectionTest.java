@@ -39,6 +39,12 @@ public class ParkingLotDetectionTest {
         User user = new User("Mahidhar", car);
         assertUnparkCarWithPosition(user, "Mahidhar", "car1");
     }
+
+    @Test
+    public void OwnerShouldKnowParkingLotIsFullOrNot(){
+        int indexOfParkingLot = 1;
+      assertFalse(CarParking.isParkingLotFull(indexOfParkingLot));
+    }
     /*
      * @desc : Tests parking a car by asserting parking-related functionalities.
      * @param user User object representing the car owner
