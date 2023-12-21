@@ -34,6 +34,7 @@ public class CarParking {
         if (size > noOfParkingLots) {
             noOfParkingLots = size;
         }
+        multipleParkingLots = new ArrayList<>();
         for (int i = 0; i < noOfParkingLots; i++) {
             multipleParkingLots.add(new ParkingLot());
         }
@@ -49,6 +50,7 @@ public class CarParking {
         if (size > noOfParkingLots) {
             noOfParkingLots = size;
         }
+        multipleParkingLots = new ArrayList<>();
         for (int i = 0; i < noOfParkingLots; i++) {
             multipleParkingLots.add(new ParkingLot(lotSize));
         }
@@ -157,6 +159,14 @@ public class CarParking {
         }
     }
 
+    /*
+    @desc : checks whether all parking lots re full or not
+    @params : no params
+    @return : boolean
+     */
+    public static boolean isFull() {
+        return multipleParkingLots.stream().allMatch(ParkingLot::isFull);
+    }
 
 
 }

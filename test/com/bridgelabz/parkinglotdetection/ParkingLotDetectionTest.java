@@ -46,9 +46,9 @@ public class ParkingLotDetectionTest {
       assertFalse(CarParking.isParkingLotFull(indexOfParkingLot));
     }
 
-    
+
     @Test
-    public void AirportAuthorityShouldKnow_WhenCompleteParkingLotIsFull{
+    public void AirportAuthorityShouldKnow_WhenCompleteParkingLotIsFull(){
         assertFalse(CarParking.isFull());
 
         CarParking carParking = new CarParking(3 , 1);
@@ -63,7 +63,7 @@ public class ParkingLotDetectionTest {
         //user 3
         car = new Car("car3", "BMW", "black", LARGECAR);
         user = new User("Mahidhar3", car);
-        assertParkCar(user, "Mahidhar3", "car1");
+        assertParkCar(user, "Mahidhar3", "car3");
         assertTrue(CarParking.isFull());
     }
     /*

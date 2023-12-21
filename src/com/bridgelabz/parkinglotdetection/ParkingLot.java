@@ -28,6 +28,7 @@ public class ParkingLot {
      * @return : void
      */
     public ParkingLot(int size) {
+        System.out.println("parking lot : " + size);
         this.size = size;
         carUsers = new ArrayList<>(size);
         for (int i = 0; i < size; i++) {
