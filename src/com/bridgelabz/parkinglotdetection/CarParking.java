@@ -106,4 +106,8 @@ public class CarParking {
                 .flatMap(parkingLot -> parkingLot.getCarUsers().stream())
                 .anyMatch(user -> userId.equals(user.getUsername()) && carId.equals(user.getCar().getCarNo()));
     }
+
+    public static void removeMyCarFromParkingLot(String username, String carNo) {
+
+    }
 }

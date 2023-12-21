@@ -7,6 +7,8 @@ import java.util.OptionalInt;
 import java.util.stream.IntStream;
 
 import static com.bridgelabz.parkinglotdetection.CarType.LARGECAR;
+import static com.bridgelabz.parkinglotdetection.CarType.SMALLCAR;
+import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertTrue;
 
 public class ParkingLotDetectionTest {
@@ -34,5 +36,33 @@ public class ParkingLotDetectionTest {
         System.out.println(CarParking.multipleParkingLots);
 
         assertTrue(CarParking.isMyCarParkedInParkingLot("Mahidhar" , "car1"));
+    }
+
+
+    /*
+    @desc : this test case validates whether an user can unpark or not , if there is car already parked ,
+     park the car
+
+     */
+
+    @Test
+    public void UserCanUnParkHisCar(){
+        Car car = new Car("car1" , "BMW" , "white" , SMALLCAR);
+        User user = new User("Mahidhar" , car);
+        ArrayList<ArrayList<Boolean>> CarParkingPositions = CarParking.getCarParkingPositions();
+        OptionalInt rowIndex = IntStream.range(0, CarParkingPositions.size())
+                .filter(i -> CarParkingPositions.get(i).stream().anyMatch(Boolean::booleanValue))
+                .findFirst();
+
+        rowIndex.ifPresent(i -> {
+            int columnIndex = CarParkingPositions.get(i).indexOf(true);
+            user.parkCarAtIndex(i, columnIndex);
+        });
+        System.out.println(user);
+        System.out.println(CarParking.multipleParkingLots);
+
+        assertTrue(CarParking.isMyCarParkedInParkingLot("Mahidhar" , "car1"));
+        user.unParkMyCar();
+        assertFalse(CarParking.isMyCarParkedInParkingLot("Mahidhar" , "car1"));
     }
 }

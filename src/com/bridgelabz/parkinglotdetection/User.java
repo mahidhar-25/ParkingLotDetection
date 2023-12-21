@@ -103,4 +103,8 @@ public class User {
     public void parkCarAtIndex(int i, int columnIndex) {
         CarParking.parkCarAtIndex(i , columnIndex , this);
     }
+
+    public void unParkMyCar() {
+        CarParking.removeMyCarFromParkingLot(username , getCar().getCarNo());
+    }
 }
