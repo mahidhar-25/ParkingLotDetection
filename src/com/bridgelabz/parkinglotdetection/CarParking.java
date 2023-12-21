@@ -104,10 +104,36 @@ public class CarParking {
     public static boolean isMyCarParkedInParkingLot(String userId, String carId) {
         return multipleParkingLots.stream()
                 .flatMap(parkingLot -> parkingLot.getCarUsers().stream())
-                .anyMatch(user -> userId.equals(user.getUsername()) && carId.equals(user.getCar().getCarNo()));
+                .anyMatch(user ->
+                        user != null &&
+                                userId.equals(user.getUsername()) &&
+                                user.getCar() != null &&
+                                carId.equals(user.getCar().getCarNo()));
     }
-
-    public static void removeMyCarFromParkingLot(String username, String carNo) {
-
+    /*
+     * @desc : Checks if a car with the given user ID and car ID is parked in any of the parking lots and removes it.
+     * @param userId User ID
+     * @param carId Car ID
+     * @return True if the car is parked, false otherwise
+     */
+    public static void removeMyCarFromParkingLot(String userId, String carId) {
+        multipleParkingLots.forEach(parkingLot ->
+                parkingLot.getCarUsers().removeIf(user ->
+                        user != null &&
+                                user.getUsername().equals(userId) &&
+                                user.getCar() != null &&
+                                user.getCar().getCarNo().equals(carId)
+                )
+        );
+    }
+    /*
+     * @desc : un Parks a car at the specified index in the parking lot.
+     * @param i Index of the parking lot
+     * @param columnIndex Index within the parking lot
+     * @param user representing the parked car
+     * @return : void
+     */
+    public static void unParkMyCarByPosition(int rowIndex, int columnIndex) {
+        multipleParkingLots.get(rowIndex).unParkMyCarByPosition(columnIndex);
     }
 }

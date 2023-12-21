@@ -1,6 +1,9 @@
 package com.bridgelabz.parkinglotdetection;
 
 import java.util.Objects;
+import java.util.OptionalInt;
+import java.util.concurrent.atomic.AtomicInteger;
+
 /*
  * @desc : Represents a User with a username and associated car information.
  */
@@ -106,5 +109,9 @@ public class User {
 
     public void unParkMyCar() {
         CarParking.removeMyCarFromParkingLot(username , getCar().getCarNo());
+    }
+
+    public void unParkMyCar(int rowIndex, int columnIndex) {
+        CarParking.unParkMyCarByPosition(rowIndex , columnIndex);
     }
 }

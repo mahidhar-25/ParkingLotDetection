@@ -116,4 +116,13 @@ public class ParkingLot {
     public void parkCar(int columnIndex, User user) {
         carUsers.set(columnIndex, user);
     }
+    /*
+       @desc : un park car at a given position
+       @params : position - integer
+       @params : user - User
+       @return : void
+        */
+    public void unParkMyCarByPosition(int columnIndex) {
+        carUsers.remove(columnIndex);
+    }
 }
