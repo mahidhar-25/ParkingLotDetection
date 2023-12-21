@@ -136,4 +136,25 @@ public class CarParking {
     public static void unParkMyCarByPosition(int rowIndex, int columnIndex) {
         multipleParkingLots.get(rowIndex).unParkMyCarByPosition(columnIndex);
     }
+    /*
+     * @desc : Checks if the parking lot at the specified index is full.
+     * @param indexOfParkingLot The index of the parking lot to check
+     * @return True if the parking lot is full, otherwise false
+     */
+    public static boolean isParkingLotFull(int indexOfParkingLot) {
+        try {
+            if (indexOfParkingLot >= 0 && indexOfParkingLot < multipleParkingLots.size()) {
+                return multipleParkingLots.get(indexOfParkingLot).isFull();
+            } else {
+                System.out.println("Index is out of bounds. Please provide a valid index.");
+                // Handle the case when the index is out of bounds
+                return false; // Or any suitable action as per your requirement
+            }
+        } catch (IndexOutOfBoundsException e) {
+            System.out.println("IndexOutOfBoundsException: " + e.getMessage());
+            // Handle the exception, log or take necessary action
+            return false; // Or any suitable action as per your requirement
+        }
+    }
+
 }

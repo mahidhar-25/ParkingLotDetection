@@ -42,7 +42,7 @@ public class ParkingLotDetectionTest {
 
     @Test
     public void OwnerShouldKnowParkingLotIsFullOrNot(){
-        int indexOfParkingLot = 1;
+        int indexOfParkingLot = 6;
       assertFalse(CarParking.isParkingLotFull(indexOfParkingLot));
     }
     /*

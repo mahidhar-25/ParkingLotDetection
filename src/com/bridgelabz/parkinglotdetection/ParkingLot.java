@@ -125,4 +125,15 @@ public class ParkingLot {
     public void unParkMyCarByPosition(int columnIndex) {
         carUsers.remove(columnIndex);
     }
+    /*
+     * @desc: Checks if the parking lot is full based on the number of occupied spaces.
+     * @params : no params
+     * @return True if the parking lot is full, otherwise false
+     */
+    public boolean isFull() {
+        long count = carUsers.stream()
+                .filter(Objects::nonNull)
+                .count();
+        return count == size;
+    }
 }
