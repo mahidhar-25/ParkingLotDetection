@@ -45,6 +45,27 @@ public class ParkingLotDetectionTest {
         int indexOfParkingLot = 6;
       assertFalse(CarParking.isParkingLotFull(indexOfParkingLot));
     }
+
+    
+    @Test
+    public void AirportAuthorityShouldKnow_WhenCompleteParkingLotIsFull{
+        assertFalse(CarParking.isFull());
+
+        CarParking carParking = new CarParking(3 , 1);
+        //user 1
+        Car car = new Car("car1", "BMW", "white", LARGECAR);
+        User user = new User("Mahidhar1", car);
+        assertParkCar(user, "Mahidhar1", "car1");
+        //user 2
+        car = new Car("car2", "Benze", "white", SMALLCAR);
+        user = new User("Mahidhar2", car);
+        assertParkCar(user, "Mahidhar2", "car2");
+        //user 3
+        car = new Car("car3", "BMW", "black", LARGECAR);
+        user = new User("Mahidhar3", car);
+        assertParkCar(user, "Mahidhar3", "car1");
+        assertTrue(CarParking.isFull());
+    }
     /*
      * @desc : Tests parking a car by asserting parking-related functionalities.
      * @param user User object representing the car owner
