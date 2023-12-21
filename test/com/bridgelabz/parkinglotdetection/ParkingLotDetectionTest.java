@@ -6,6 +6,7 @@ import java.util.ArrayList;
 import java.util.OptionalInt;
 import java.util.stream.IntStream;
 
+import static com.bridgelabz.parkinglotdetection.CarType.LARGECAR;
 import static org.junit.Assert.assertTrue;
 
 public class ParkingLotDetectionTest {
@@ -18,7 +19,7 @@ public class ParkingLotDetectionTest {
 
     @Test
     public void UserCanParkHisCar(){
-        Car car = new Car("car1" , "white" , "BMW" , "largeCar");
+        Car car = new Car("car1" , "BMW" , "white" , LARGECAR);
         User user = new User("Mahidhar" , car);
         ArrayList<ArrayList<Boolean>> CarParkingPositions = CarParking.getCarParkingPositions();
         OptionalInt rowIndex = IntStream.range(0, CarParkingPositions.size())
@@ -29,6 +30,8 @@ public class ParkingLotDetectionTest {
             int columnIndex = CarParkingPositions.get(i).indexOf(true);
             user.parkCarAtIndex(i, columnIndex);
         });
+        System.out.println(user);
+        System.out.println(CarParking.multipleParkingLots);
 
         assertTrue(CarParking.isMyCarParkedInParkingLot("Mahidhar" , "car1"));
     }
