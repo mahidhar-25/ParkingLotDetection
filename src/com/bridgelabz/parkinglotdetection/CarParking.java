@@ -149,13 +149,11 @@ public class CarParking {
                 return multipleParkingLots.get(indexOfParkingLot).isFull();
             } else {
                 System.out.println("Index is out of bounds. Please provide a valid index.");
-                // Handle the case when the index is out of bounds
-                return false; // Or any suitable action as per your requirement
+                return false;
             }
         } catch (IndexOutOfBoundsException e) {
             System.out.println("IndexOutOfBoundsException: " + e.getMessage());
-            // Handle the exception, log or take necessary action
-            return false; // Or any suitable action as per your requirement
+            return false;
         }
     }
 
