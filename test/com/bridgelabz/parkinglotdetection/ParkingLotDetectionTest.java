@@ -6,13 +6,13 @@ import org.junit.Test;
 import org.junit.runners.MethodSorters;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.OptionalInt;
 import java.util.stream.IntStream;
 
 import static com.bridgelabz.parkinglotdetection.CarType.LARGECAR;
 import static com.bridgelabz.parkinglotdetection.CarType.SMALLCAR;
-import static org.junit.Assert.assertFalse;
-import static org.junit.Assert.assertTrue;
+import static org.junit.Assert.*;
 
 @FixMethodOrder(MethodSorters.NAME_ASCENDING)
 public class ParkingLotDetectionTest {
@@ -80,6 +80,16 @@ public class ParkingLotDetectionTest {
         parkingAttendant.parkUserCar(user);
         System.out.println(CarParking.multipleParkingLots);
         assertTrue(CarParking.isMyCarParkedInParkingLot("Mahidhar1" , "car1"));
+    }
+
+    @Test
+    public void H_UserNeedToFindThePositionOfTheCar(){
+        CarParking carParking = new CarParking(3 , 1);
+        Car car = new Car("car1", "BMW", "white", LARGECAR);
+        User user = new User("Mahidhar1", car);
+        new ParkingAttendant().parkUserCar(user);
+        int[] positions = CarParking.getMyCarParkingPosition("Mahidhar1" , "car1");
+        assertArrayEquals(new int[]{2 , 0} , positions);
     }
 
     /*
