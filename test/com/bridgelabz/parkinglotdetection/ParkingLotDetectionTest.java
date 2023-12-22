@@ -5,6 +5,9 @@ import org.junit.FixMethodOrder;
 import org.junit.Test;
 import org.junit.runners.MethodSorters;
 
+import java.time.Duration;
+import java.time.LocalDateTime;
+import java.time.LocalTime;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.OptionalInt;
@@ -92,6 +95,20 @@ public class ParkingLotDetectionTest {
         assertArrayEquals(new int[]{2 , 0} , positions);
     }
 
+    @Test
+    public void I_OwnerShouldGetTheParkingTimeOfTheCar(){
+        CarParking carParking = new CarParking(2);
+        Car car = new Car("car1", "BMW", "white", LARGECAR);
+        User user = new User("Mahidhar1", car);
+        new ParkingAttendant().parkUserCar(user);
+        LocalDateTime expectedParkingTime = LocalDateTime.now(); // Set your expected time
+        user = CarParking.getCarUserDetailsParkedAt(1, 99);
+        LocalDateTime parkingTimeOfMyCar = user.getCar().getParkedTime();
+        Duration timeDifference = Duration.between(expectedParkingTime, parkingTimeOfMyCar);
+        long maxAllowedDifferenceInSeconds = 60; // Adjust this according to your acceptable range
+
+        assertTrue(timeDifference.getSeconds() <= maxAllowedDifferenceInSeconds);
+    }
     /*
     @desc : it will create a 3 parking lot with each size 1 and park the cars in them
     @params : no params
