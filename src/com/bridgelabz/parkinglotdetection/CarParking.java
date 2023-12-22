@@ -165,7 +165,25 @@ public class CarParking {
     public static boolean isFull() {
         return multipleParkingLots.stream().allMatch(ParkingLot::isFull);
     }
+/*
+@desc : get my car parking positions
+@param userId User ID
+ @param carId Car ID
+ @return : int[] array with car positions
 
+ */
+    public int[] getMyCarParkingPosition(String userId, String carId) {
+        for (int i = 0; i < multipleParkingLots.size(); i++) {
+            ArrayList<User> carUsers = multipleParkingLots.get(i).getCarUsers();
+            for (int j = 0; j < carUsers.size(); j++) {
+                User user = carUsers.get(j);
+                if (user.getUsername().equals(userId) && user.getCar().getCarNo().equals(carId)) {
+                    return new int[]{i, j}; // Row: i (parking lot), Column: j (position in the lot)
+                }
+            }
+        }
+        return new int[]{-1, -1}; // Indicate car not found
+    }
 
 
 }

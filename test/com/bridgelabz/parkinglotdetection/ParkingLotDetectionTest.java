@@ -1,6 +1,9 @@
 package com.bridgelabz.parkinglotdetection;
 
+import org.junit.Before;
+import org.junit.FixMethodOrder;
 import org.junit.Test;
+import org.junit.runners.MethodSorters;
 
 import java.util.ArrayList;
 import java.util.OptionalInt;
@@ -11,7 +14,13 @@ import static com.bridgelabz.parkinglotdetection.CarType.SMALLCAR;
 import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertTrue;
 
+@FixMethodOrder(MethodSorters.NAME_ASCENDING)
 public class ParkingLotDetectionTest {
+
+//    @Before
+//    public void setup(){
+//        CarParking carParking = new CarParking();
+//    }
 
     /*
     @desc : this test case validates whether an user can park or not , if there is available position to park ,
@@ -19,35 +28,35 @@ public class ParkingLotDetectionTest {
 
      */
     @Test
-    public void UserCanParkHisCar() {
+    public void A_UserCanParkHisCar() {
         Car car = new Car("car1", "BMW", "white", LARGECAR);
         User user = new User("Mahidhar", car);
         assertParkCar(user, "Mahidhar", "car1");
     }
 
     @Test
-    public void UserCanUnParkHisCar() {
+    public void B_UserCanUnParkHisCar() {
         Car car = new Car("car1", "BMW", "white", SMALLCAR);
         User user = new User("Mahidhar", car);
         assertUnparkCar(user, "Mahidhar", "car1");
     }
 
     @Test
-    public void UserCanUnParkHisCarByGivingPositionOfCar() {
+    public void C_UserCanUnParkHisCarByGivingPositionOfCar() {
         Car car = new Car("car1", "BMW", "white", SMALLCAR);
         User user = new User("Mahidhar", car);
         assertUnparkCarWithPosition(user, "Mahidhar", "car1");
     }
 
     @Test
-    public void OwnerShouldKnowParkingLotIsFullOrNot(){
+    public void D_OwnerShouldKnowParkingLotIsFullOrNot(){
         int indexOfParkingLot = 6;
       assertFalse(CarParking.isParkingLotFull(indexOfParkingLot));
     }
 
 
     @Test
-    public void AirportAuthorityShouldKnow_WhenCompleteParkingLotIsFull(){
+    public void E_AirportAuthorityShouldKnow_WhenCompleteParkingLotIsFull(){
         assertFalse(CarParking.isFull());
         fillTheParkingLotWithCars();
         assertTrue(CarParking.isFull());
@@ -55,7 +64,7 @@ public class ParkingLotDetectionTest {
 
 
     @Test
-    public void ParkingOwnerShouldKnowWhenThereIsAnSpaceInParkingLot(){
+    public void F_ParkingOwnerShouldKnowWhenThereIsAnSpaceInParkingLot(){
         fillTheParkingLotWithCars();
         assertTrue(CarParking.isFull());
         CarParking.removeMyCarFromParkingLot("Mahidhar1", "car1");
@@ -63,11 +72,13 @@ public class ParkingLotDetectionTest {
     }
 
     @Test
-    public void ParkingAttendantCanDecideWhereToParkCar(){
+    public void G_ParkingAttendantCanDecideWhereToParkCar(){
+        CarParking carParking = new CarParking(2);
         Car car = new Car("car1", "BMW", "white", LARGECAR);
         User user = new User("Mahidhar1", car);
         ParkingAttendant parkingAttendant = new ParkingAttendant();
         parkingAttendant.parkUserCar(user);
+        System.out.println(CarParking.multipleParkingLots);
         assertTrue(CarParking.isMyCarParkedInParkingLot("Mahidhar1" , "car1"));
     }
 
