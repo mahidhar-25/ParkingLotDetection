@@ -1,5 +1,6 @@
 package com.bridgelabz.parkinglotdetection;
 
+import java.time.LocalDateTime;
 import java.util.Objects;
 
 /*
@@ -10,6 +11,10 @@ public class Car {
     private String company; // @desc Car's manufacturing company
     private String color; // @desc Car's color
     private CarType carType; // @desc Type of the car (e.g., sedan, SUV)
+
+    private LocalDateTime parkingTime;
+    private LocalDateTime unParkingTime;
+    private boolean isCarParked;
 
     /*
      * @desc : Default constructor for Car class.
@@ -128,12 +133,55 @@ public class Car {
     public int hashCode() {
         return Objects.hash(carNo, company, color, carType);
     }
-
     /*
-     * @desc : Provides a string representation of Car object.
+     * @desc : getParkingTime when car is parked.
      * @params : no params
-     * @return The string representation of the Car
+     * @return : LocalDateTime parking time
      */
+    public LocalDateTime getParkingTime() {
+        return parkingTime;
+    }
+    /*
+     * @desc : setParkingTime when car is parked.
+     * @params :  LocalDateTime parking time
+     * @return : void
+     */
+    public void setParkingTime(LocalDateTime parkingTime) {
+        this.parkingTime = parkingTime;
+    }
+    /*
+     * @desc : getUnParkingTime when car is parked.
+     * @params : no params
+     * @return : LocalDateTime parking time
+     */
+    public LocalDateTime getUnParkingTime() {
+        return unParkingTime;
+    }
+    /*
+     * @desc : setUnParkingTime when car is parked.
+     * @params :  LocalDateTime parking time
+     * @return : void
+     */
+    public void setUnParkingTime(LocalDateTime unParkingTime) {
+        this.unParkingTime = unParkingTime;
+    }
+    /*
+     * @desc : we can know is car parked or not.
+     * @params : no params
+     * @return : boolean
+     */
+    public boolean isCarParked() {
+        return isCarParked;
+    }
+    /*
+     * @desc : we can set  car parked or not.
+     * @params : boolean
+     * @return : void
+     */
+    public void setCarParked(boolean carParked) {
+        isCarParked = carParked;
+    }
+
     @Override
     public String toString() {
         return "Car{" +
@@ -141,6 +189,11 @@ public class Car {
                 ", company='" + company + '\'' +
                 ", color='" + color + '\'' +
                 ", carType=" + carType +
+                ", parkingTime=" + parkingTime +
+                ", unParkingTime=" + unParkingTime +
+                ", isCarParked=" + isCarParked +
                 '}';
     }
 }
+
+

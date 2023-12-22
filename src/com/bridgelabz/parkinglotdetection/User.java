@@ -105,15 +105,34 @@ public class User {
     }
 
 
+    /*
+     * @desc : Parks the user's car at the specified index in the parking lot.
+     * @param i The row index in the parking lot
+     * @param columnIndex The column index in the parking lot
+     * @return : void
+     */
     public void parkCarAtIndex(int i, int columnIndex) {
-        CarParking.parkCarAtIndex(i , columnIndex , this);
+        CarParking.parkCarAtIndex(i, columnIndex, this);
     }
 
+    /*
+     * @desc : Unparks the user's car from the parking lot.
+     * Removes the car from the parking lot based on the user's information.
+     * @params : no params
+     * @return : void
+     */
     public void unParkMyCar() {
-        CarParking.removeMyCarFromParkingLot(username , getCar().getCarNo());
+        CarParking.removeMyCarFromParkingLot(username, getCar().getCarNo());
     }
 
-    public void unParkMyCar(int rowIndex, int columnIndex) {
-        CarParking.unParkMyCarByPosition(rowIndex , columnIndex);
+    /*
+     * @desc : Unparks the user's car from the parking lot using specified row and column indices.
+     * @param rowIndex The row index in the parking lot
+     * @param columnIndex The column index in the parking lot
+     * @return The user object after unparking the car
+     */
+    public User unParkMyCar(int rowIndex, int columnIndex) {
+        return CarParking.unParkMyCarByPosition(rowIndex, columnIndex);
     }
+
 }

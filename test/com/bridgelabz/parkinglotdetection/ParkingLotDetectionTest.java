@@ -101,12 +101,12 @@ public class ParkingLotDetectionTest {
         Car car = new Car("car1", "BMW", "white", LARGECAR);
         User user = new User("Mahidhar1", car);
         new ParkingAttendant().parkUserCar(user);
-        LocalDateTime expectedParkingTime = LocalDateTime.now(); // Set your expected time
-        user = CarParking.getCarUserDetailsParkedAt(1, 99);
-        LocalDateTime parkingTimeOfMyCar = user.getCar().getParkedTime();
+        LocalDateTime expectedParkingTime = LocalDateTime.now();
+        int[] positions = CarParking.getMyCarParkingPosition("Mahidhar1" , "car1");
+        user = CarParking.getCarUserDetailsParkedAt(positions[0], positions[1]);
+        LocalDateTime parkingTimeOfMyCar = user.getCar().getParkingTime();
         Duration timeDifference = Duration.between(expectedParkingTime, parkingTimeOfMyCar);
-        long maxAllowedDifferenceInSeconds = 60; // Adjust this according to your acceptable range
-
+        long maxAllowedDifferenceInSeconds = 60;
         assertTrue(timeDifference.getSeconds() <= maxAllowedDifferenceInSeconds);
     }
     /*

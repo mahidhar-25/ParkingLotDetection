@@ -1,5 +1,6 @@
 package com.bridgelabz.parkinglotdetection;
 
+import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.Objects;
 /*
@@ -115,7 +116,10 @@ public class ParkingLot {
     @return : void
      */
     public void parkCar(int columnIndex, User user) {
+
         carUsers.set(columnIndex, user);
+        user.getCar().setCarParked(true);
+        user.getCar().setParkingTime(LocalDateTime.now());
     }
     /*
        @desc : un park car at a given position
@@ -123,8 +127,13 @@ public class ParkingLot {
        @params : user - User
        @return : void
         */
-    public void unParkMyCarByPosition(int columnIndex) {
+    public User unParkMyCarByPosition(int columnIndex) {
+
+        User user = carUsers.get(columnIndex);
         carUsers.remove(columnIndex);
+        user.getCar().setCarParked(false);
+        user.getCar().setUnParkingTime(LocalDateTime.now());
+        return user;
     }
     /*
      * @desc: Checks if the parking lot is full based on the number of occupied spaces.

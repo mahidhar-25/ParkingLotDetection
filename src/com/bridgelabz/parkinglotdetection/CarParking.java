@@ -135,8 +135,8 @@ public class CarParking {
      * @param user representing the parked car
      * @return : void
      */
-    public static void unParkMyCarByPosition(int rowIndex, int columnIndex) {
-        multipleParkingLots.get(rowIndex).unParkMyCarByPosition(columnIndex);
+    public static User unParkMyCarByPosition(int rowIndex, int columnIndex) {
+        return multipleParkingLots.get(rowIndex).unParkMyCarByPosition(columnIndex);
     }
     /*
      * @desc : Checks if the parking lot at the specified index is full.
@@ -186,4 +186,7 @@ public class CarParking {
     }
 
 
+    public static User getCarUserDetailsParkedAt(int rowIndex, int columnIndex) {
+        return multipleParkingLots.get(rowIndex).getCarUsers().get(columnIndex);
+    }
 }
