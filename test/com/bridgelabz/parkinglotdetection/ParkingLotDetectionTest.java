@@ -4,7 +4,6 @@ import org.junit.Test;
 
 import java.util.ArrayList;
 import java.util.OptionalInt;
-import java.util.concurrent.atomic.AtomicInteger;
 import java.util.stream.IntStream;
 
 import static com.bridgelabz.parkinglotdetection.CarType.LARGECAR;
@@ -61,6 +60,15 @@ public class ParkingLotDetectionTest {
         assertTrue(CarParking.isFull());
         CarParking.removeMyCarFromParkingLot("Mahidhar1", "car1");
         assertFalse(CarParking.isFull());
+    }
+
+    @Test
+    public void ParkingAttendantCanDecideWhereToParkCar(){
+        Car car = new Car("car1", "BMW", "white", LARGECAR);
+        User user = new User("Mahidhar1", car);
+        ParkingAttendant parkingAttendant = new ParkingAttendant();
+        parkingAttendant.parkUserCar(user);
+        assertTrue(CarParking.isMyCarParkedInParkingLot("Mahidhar1" , "car1"));
     }
 
     /*
