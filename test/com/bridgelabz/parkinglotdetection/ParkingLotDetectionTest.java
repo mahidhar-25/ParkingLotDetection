@@ -59,7 +59,7 @@ public class ParkingLotDetectionTest {
     public void ParkingOwnerShouldKnowWhenThereIsAnSpaceInParkingLot(){
         fillTheParkingLotWithCars();
         assertTrue(CarParking.isFull());
-        CarParking.unParkMyCarByPosition("Mahidhar1", "car1");
+        CarParking.removeMyCarFromParkingLot("Mahidhar1", "car1");
         assertFalse(CarParking.isFull());
     }
 
