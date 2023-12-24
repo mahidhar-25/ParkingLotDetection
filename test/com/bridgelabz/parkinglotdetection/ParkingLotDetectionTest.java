@@ -10,6 +10,7 @@ import java.time.LocalDateTime;
 import java.time.LocalTime;
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.Map;
 import java.util.OptionalInt;
 import java.util.stream.IntStream;
 
@@ -186,6 +187,25 @@ public class ParkingLotDetectionTest {
         assertArrayEquals(new int[]{1 , 5} , positions.get(1));
     }
 
+    @Test
+    public void N_GetAllCarsByPassingCarNameAndColorAsArguments(){
+        CarParking carParking = new CarParking(2);
+        Car car = new Car("car1", "Toyata", "white", SMALLCAR);
+        User user = new User("Mahidhar1", car);
+        user.parkCarAtIndex(0 , 0);
+        car = new Car("car2", "BMW", "blue", SMALLCAR);
+        user = new User("Mahidhar2", car);
+        user.parkCarAtIndex(0 , 1);
+        car = new Car("car5", "Toyata", "white", LARGECAR);
+        user = new User("Mahidhar5", car);
+        user.parkCarAtIndex(1 , 5);
+        car = new Car("car3", "Toyata", "blue", LARGECAR);
+        user = new User("Mahidhar3", car);
+        new ParkingAttendant().parkUserCar(user);
+        PoliceOfficer policeOfficer =  new PoliceOfficer();
+        Map<int[] , User> filteredUsersByPositions = policeOfficer.getAllUserCarsByCompanyAndColor("Toyata" , "white");
+        assertTrue(filteredUsersByPositions.containsValue(user));
+    }
     /*
     @desc : it will create a 3 parking lot with each size 1 and park the cars in them
     @params : no params
