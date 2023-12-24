@@ -75,6 +75,21 @@ public class ParkingAttendant {
                 .filter(i -> carParkingPositions.get(i).stream().anyMatch(Boolean::booleanValue))
                 .reduce((first, second) -> second);
     }
+/*
+@desc : going through each parking lot and finding in which lot you have most available space
+@params : ArrayList<ArrayList<Boolean>> carParkingPositions
+@return : int
+ */
+    private int findMostAvailableSpaceRowIndex(ArrayList<ArrayList<Boolean>> carParkingPositions) {
+        return IntStream.range(0, carParkingPositions.size())
+                .reduce((first, second) -> {
+                    long firstCount = carParkingPositions.get(first).stream().filter(Boolean::booleanValue).count();
+                    long secondCount = carParkingPositions.get(second).stream().filter(Boolean::booleanValue).count();
+                    return firstCount >= secondCount ? first : second;
+                })
+                .orElse(-1);
+    }
+
 
     /*
     @desc : this function finds the positions of the car where user can park and should be evenly distributed
@@ -98,5 +113,38 @@ public class ParkingAttendant {
             }
             j++;
         }
+    }
+
+    /*
+    @desc : get the first Index where large availabe space is present in parking lots
+    @params :  ArrayList<Boolean> positionsAvailable
+    @return : int
+     */
+    private int getMostConsecutiveAvailableSpacePosition(ArrayList<Boolean> positionsAvailable){
+        return IntStream.range(0, positionsAvailable.size())
+                .reduce((first, second) -> {
+                    int firstConsecutiveCount = (int) IntStream.range(first, positionsAvailable.size())
+                            .takeWhile(positionsAvailable::get)
+                            .count();
+
+                    int secondConsecutiveCount = (int) IntStream.range(second, positionsAvailable.size())
+                            .takeWhile(positionsAvailable::get)
+                            .count();
+
+                    return firstConsecutiveCount >= secondConsecutiveCount ? first : second;
+                })
+                .orElse(-1);
+    }
+
+    /*
+    @desc : park car at most consecutive space available in parking lots
+    @params : user
+    @return : void
+     */
+    public void parkUserLargeCarAtMoreSpaceAvailable(User user) {
+         int rowIndex = findMostAvailableSpaceRowIndex(CarParking.getCarParkingPositions());
+         ArrayList<Boolean> positionsAvailable = CarParking.getCarParkingPositions().get(rowIndex);
+        int columnIndex = getMostConsecutiveAvailableSpacePosition(positionsAvailable);
+        CarParking.parkCarAtIndex(rowIndex , columnIndex , user);
     }
 }

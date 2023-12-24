@@ -31,11 +31,9 @@ public class CarParking {
      * @return : void
      */
     public CarParking(int size) {
-        if (size > noOfParkingLots) {
-            noOfParkingLots = size;
-        }
+        noOfParkingLots = size;
         multipleParkingLots = new ArrayList<>();
-        for (int i = 0; i < noOfParkingLots; i++) {
+        for (int i = 0; i < size; i++) {
             multipleParkingLots.add(new ParkingLot());
         }
     }
