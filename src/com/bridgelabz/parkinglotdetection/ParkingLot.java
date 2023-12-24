@@ -83,7 +83,7 @@ public class ParkingLot {
         return "ParkingLot{" +
                 "size=" + size +
                 ", carUsers=" + carUsers +
-                '}';
+                "}\n";
     }
 
     /*

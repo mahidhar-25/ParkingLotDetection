@@ -177,8 +177,11 @@ public class CarParking {
             ArrayList<User> carUsers = multipleParkingLots.get(i).getCarUsers();
             for (int j = 0; j < carUsers.size(); j++) {
                 User user = carUsers.get(j);
+//                if(user!=null){
+//                    System.out.println(user);
+//                }
                 if (user!=null && user.getUsername().equals(userId) && user.getCar().getCarNo().equals(carId)) {
-                    return new int[]{i, j}; // Row: i (parking lot), Column: j (position in the lot)
+                    return new int[]{i, j};
                 }
             }
         }

@@ -4,6 +4,8 @@ import java.util.ArrayList;
 import java.util.OptionalInt;
 import java.util.stream.IntStream;
 
+import static java.lang.Math.max;
+
 public class ParkingAttendant {
 
     /*
@@ -67,5 +69,29 @@ public class ParkingAttendant {
         return IntStream.range(0, carParkingPositions.size())
                 .filter(i -> carParkingPositions.get(i).stream().anyMatch(Boolean::booleanValue))
                 .reduce((first, second) -> second);
+    }
+
+    /*
+    @desc : this function finds the positions of the car where user can park and should be evenly distributed
+    @params : user
+    @return : void
+     */
+    public void parkUserCarEvenly(User user) {
+        ArrayList<ArrayList<Boolean>> carParkingPositions = CarParking.getCarParkingPositions();
+
+        int maxSize = 0;
+        for (ArrayList<Boolean> carParkingPosition : carParkingPositions) {
+            maxSize = max(maxSize, carParkingPosition.size());
+        }
+        int j=0;
+        while(j < maxSize){
+            for(int i=0;i<carParkingPositions.size();i++){
+                if(j< carParkingPositions.get(i).size() && CarParking.multipleParkingLots.get(i).getCarUsers().get(j) == null){
+                    CarParking.parkCarAtIndex(i , j , user);
+                    return;
+                }
+            }
+            j++;
+        }
     }
 }
