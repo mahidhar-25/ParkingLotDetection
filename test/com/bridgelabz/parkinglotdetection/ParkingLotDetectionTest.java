@@ -159,6 +159,29 @@ public class ParkingLotDetectionTest {
         System.out.println(Arrays.toString(CarParking.getMyCarParkingPosition("Mahidhar3", "car3")));
         assertTrue(user.equals(user1));
     }
+
+
+    @Test
+    public void M_GetAllThePositionsOfTheSpecificColorCarDetails(){
+        CarParking carParking = new CarParking(2);
+        Car car = new Car("car1", "BMW", "black", SMALLCAR);
+        User user = new User("Mahidhar1", car);
+        user.parkCarAtIndex(0 , 0);
+        car = new Car("car2", "BMW", "white", SMALLCAR);
+        user = new User("Mahidhar2", car);
+        user.parkCarAtIndex(0 , 1);
+        car = new Car("car5", "BMW", "white", LARGECAR);
+        user = new User("Mahidhar5", car);
+        user.parkCarAtIndex(1 , 5);
+        car = new Car("car3", "BMW", "white", LARGECAR);
+        user = new User("Mahidhar3", car);
+        new ParkingAttendant().parkUserCar(user);
+        PoliceOfficer policeOfficer =  new PoliceOfficer();
+        ArrayList<User> allWhiteColoredUserCars = policeOfficer.getAllSpecificColorCarUsers("white");
+        ArrayList<Integer[]> positions = policeOfficer.getAllPositionsOfUsers(allWhiteColoredUserCars);
+        assertEquals(3 , positions.size());
+    }
+
     /*
     @desc : it will create a 3 parking lot with each size 1 and park the cars in them
     @params : no params
