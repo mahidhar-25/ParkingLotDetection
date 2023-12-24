@@ -14,11 +14,16 @@ public class ParkingAttendant {
     @return : void
      */
     public void parkUserCar(User user) {
+        
+
+        if(user.getUserType() == UserType.HANDICAP){
+            parkCarAtBegin(user);
+        }
         Car car = user.getCar();
         if(car.getCarType() == CarType.LARGECAR){
             parkLargeCarAtEnd(user);
         }else{
-            parkSmallCarAtBegin(user);
+            parkCarAtBegin(user);
         }
     }
 
@@ -40,7 +45,7 @@ public class ParkingAttendant {
        @params : user as parameter
        @return : void
         */
-    private void parkSmallCarAtBegin(User user) {
+    private void parkCarAtBegin(User user) {
         ArrayList<ArrayList<Boolean>> carParkingPositions = CarParking.getCarParkingPositions();
         OptionalInt rowIndex = findFirstRowIndex(carParkingPositions);
         rowIndex.ifPresent(i -> {

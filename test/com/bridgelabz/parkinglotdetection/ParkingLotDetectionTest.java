@@ -15,6 +15,7 @@ import java.util.stream.IntStream;
 
 import static com.bridgelabz.parkinglotdetection.CarType.LARGECAR;
 import static com.bridgelabz.parkinglotdetection.CarType.SMALLCAR;
+import static com.bridgelabz.parkinglotdetection.UserType.HANDICAP;
 import static org.junit.Assert.*;
 
 @FixMethodOrder(MethodSorters.NAME_ASCENDING)

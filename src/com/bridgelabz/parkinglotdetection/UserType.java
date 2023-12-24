@@ -1,5 +1,5 @@
 package com.bridgelabz.parkinglotdetection;
 
-public class UserType {
+public enum UserType {
     HANDICAP , NORMALPERSON
 }

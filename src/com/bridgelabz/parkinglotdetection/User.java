@@ -4,12 +4,17 @@ import java.util.Objects;
 import java.util.OptionalInt;
 import java.util.concurrent.atomic.AtomicInteger;
 
+import static com.bridgelabz.parkinglotdetection.UserType.HANDICAP;
+import static com.bridgelabz.parkinglotdetection.UserType.NORMALPERSON;
+
 /*
  * @desc : Represents a User with a username and associated car information.
  */
 public class User {
+
     private String username; // @desc User's username
     private Car car; // @desc User's associated car
+    private UserType userType;
 
 
 
@@ -30,6 +35,20 @@ public class User {
     public User(String username, Car car) {
         this.username = username;
         this.car = car;
+        this.userType = NORMALPERSON;
+    }
+
+    public User(String username, Car car, UserType userType) {
+        this(username , car);
+        this.userType = userType;
+    }
+
+    public UserType getUserType() {
+        return userType;
+    }
+
+    public void setUserType(UserType userType) {
+        this.userType = userType;
     }
 
     /*
