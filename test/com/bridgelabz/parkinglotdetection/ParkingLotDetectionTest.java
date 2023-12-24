@@ -230,6 +230,26 @@ public class ParkingLotDetectionTest {
         ArrayList<User>BMWUsers = policeOfficer.getAllSpecificCarCompanyFromParkingLots(CarParking.multipleParkingLots , "BMW");
         assertEquals(2 , BMWUsers.size());
     }
+
+    @Test
+    public void P_GetAllTheCarUserWhoParkedMoreThanGivenTime() throws InterruptedException {
+        CarParking carParking = new CarParking(2);
+        User user = createNormalUser("Mahidhar1" , "car1", "Toyata", "white", SMALLCAR);
+        user.parkCarAtIndex(0 , 0);
+        Thread.sleep(15000);
+        user = createNormalUser("Mahidhar2" , "car2", "BMW", "blue", SMALLCAR);
+        user.parkCarAtIndex(0 , 1);
+        Thread.sleep(15000);
+        user = createNormalUser("Mahidhar5" , "car5", "BMW", "white", LARGECAR);
+        user.parkCarAtIndex(1 , 5);
+        Thread.sleep(15000);
+        user = createNormalUser("Mahidhar3" , "car3", "Toyata", "blue", LARGECAR);
+        new ParkingAttendant().parkUserCar(user);
+        Thread.sleep(15000);
+        PoliceOfficer policeOfficer =  new PoliceOfficer();
+        ArrayList<User> getAllCarUser = policeOfficer.getAllCarUserWhoGotParkedMoreThanGivenTime(CarParking.multipleParkingLots , 15);
+        assertEquals(3 , getAllCarUser.size());
+    }
     /*
     @desc : it will create a 3 parking lot with each size 1 and park the cars in them
     @params : no params
