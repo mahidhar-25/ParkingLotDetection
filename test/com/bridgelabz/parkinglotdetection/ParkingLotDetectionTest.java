@@ -203,7 +203,7 @@ public class ParkingLotDetectionTest {
         user = new User("Mahidhar3", car);
         new ParkingAttendant().parkUserCar(user);
         PoliceOfficer policeOfficer =  new PoliceOfficer();
-        Map<int[] , User> filteredUsersByPositions = policeOfficer.getAllUserCarsByCompanyAndColor("Toyata" , "white");
+        Map<int[] , User> filteredUsersByPositions = policeOfficer.getAllUserCarsByCompanyAndColor("Toyata" , "blue");
         assertTrue(filteredUsersByPositions.containsValue(user));
     }
     /*
