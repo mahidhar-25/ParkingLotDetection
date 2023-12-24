@@ -32,24 +32,52 @@ public class ParkingLotDetectionTest {
      park the car
 
      */
+
+    /*
+        @desc : Create a new user with the given parameters.
+        @params :
+            userId: String - ID of the user
+            carId: String - ID of the car
+            brand: String - Brand of the car
+            color: String - Color of the car
+            carType: CarType - Type of the car (enum)
+       @return : User
+    */
+    private User createNormalUser(String userId, String carId, String brand, String color, CarType carType) {
+        Car car = new Car(carId, brand, color, carType);
+        return new User(userId, car);
+    }
+
+    /*
+        @desc : Create a new user with a disability status and the given parameters.
+        @params :
+            userId: String - ID of the user
+            userType: UserType - Type of user (disability status)
+            carId: String - ID of the car
+            brand: String - Brand of the car
+            color: String - Color of the car
+            carType: CarType - Type of the car (enum)
+        @return : User
+    */
+    private User createDisabilityUser(String userId, UserType userType, String carId, String brand, String color, CarType carType) {
+        Car car = new Car(carId, brand, color, carType);
+        return new User(userId, car, userType);
+    }
     @Test
     public void A_UserCanParkHisCar() {
-        Car car = new Car("car1", "BMW", "white", LARGECAR);
-        User user = new User("Mahidhar", car);
+        User user = createNormalUser("Mahidhar" , "car1", "BMW", "white", LARGECAR);
         assertParkCar(user, "Mahidhar", "car1");
     }
 
     @Test
     public void B_UserCanUnParkHisCar() {
-        Car car = new Car("car1", "BMW", "white", SMALLCAR);
-        User user = new User("Mahidhar", car);
+        User user = createNormalUser("Mahidhar" , "car1", "BMW", "white", SMALLCAR);
         assertUnparkCar(user, "Mahidhar", "car1");
     }
 
     @Test
     public void C_UserCanUnParkHisCarByGivingPositionOfCar() {
-        Car car = new Car("car1", "BMW", "white", SMALLCAR);
-        User user = new User("Mahidhar", car);
+        User user = createNormalUser("Mahidhar" , "car1", "BMW", "white", SMALLCAR);
         assertUnparkCarWithPosition(user, "Mahidhar", "car1");
     }
 
@@ -79,19 +107,16 @@ public class ParkingLotDetectionTest {
     @Test
     public void G_ParkingAttendantCanDecideWhereToParkCar(){
         CarParking carParking = new CarParking(2);
-        Car car = new Car("car1", "BMW", "white", LARGECAR);
-        User user = new User("Mahidhar1", car);
+        User user = createNormalUser("Mahidhar1" , "car1", "BMW", "white", LARGECAR);
         ParkingAttendant parkingAttendant = new ParkingAttendant();
         parkingAttendant.parkUserCar(user);
-        System.out.println(CarParking.multipleParkingLots);
         assertTrue(CarParking.isMyCarParkedInParkingLot("Mahidhar1" , "car1"));
     }
 
     @Test
     public void H_UserNeedToFindThePositionOfTheCar(){
         CarParking carParking = new CarParking(3 , 1);
-        Car car = new Car("car1", "BMW", "white", LARGECAR);
-        User user = new User("Mahidhar1", car);
+        User user = createNormalUser("Mahidhar1" , "car1", "BMW", "white", LARGECAR);
         new ParkingAttendant().parkUserCar(user);
         int[] positions = CarParking.getMyCarParkingPosition("Mahidhar1" , "car1");
         assertArrayEquals(new int[]{2 , 0} , positions);
@@ -100,8 +125,7 @@ public class ParkingLotDetectionTest {
     @Test
     public void I_OwnerShouldGetTheParkingTimeOfTheCar(){
         CarParking carParking = new CarParking(2);
-        Car car = new Car("car1", "BMW", "white", LARGECAR);
-        User user = new User("Mahidhar1", car);
+        User user = createNormalUser("Mahidhar1" , "car1", "BMW", "white", LARGECAR);
         new ParkingAttendant().parkUserCar(user);
         LocalDateTime expectedParkingTime = LocalDateTime.now();
         int[] positions = CarParking.getMyCarParkingPosition("Mahidhar1" , "car1");
@@ -116,14 +140,11 @@ public class ParkingLotDetectionTest {
     @Test
     public void J_ParkingAttendantShouldParkCarEvenly(){
         CarParking carParking = new CarParking(3);
-        Car car = new Car("car1", "BMW", "white", LARGECAR);
-        User user = new User("Mahidhar1", car);
+        User user = createNormalUser("Mahidhar1" , "car1", "BMW", "white", LARGECAR);
         user.parkCarAtIndex(0 , 0);
-        car = new Car("car2", "BMW", "white", LARGECAR);
-         user = new User("Mahidhar2", car);
+        user = createNormalUser("Mahidhar2" , "car2", "BMW", "white", LARGECAR);
         user.parkCarAtIndex(1 , 0);
-        car = new Car("car3", "BMW", "white", LARGECAR);
-        user = new User("Mahidhar3", car);
+        user = createNormalUser("Mahidhar3" , "car3", "BMW", "white", LARGECAR);
         new ParkingAttendant().parkUserCarEvenly(user);
         User user1 = CarParking.getCarUserDetailsParkedAt(2 , 0);
         assertTrue(user.equals(user1));
@@ -133,8 +154,7 @@ public class ParkingLotDetectionTest {
     @Test
     public void K_HandicapCarShouldParkAtNearestPositionEvenItIsLargeCar(){
         CarParking carParking = new CarParking(3);
-        Car car = new Car("car2", "BMW", "white", LARGECAR);
-        User user = new User("Mahidhar2", car , HANDICAP);
+        User user = createDisabilityUser("Mahidhar2" ,HANDICAP, "car2", "BMW", "white", LARGECAR);
         new ParkingAttendant().parkUserCar(user);
         User user1 = CarParking.getCarUserDetailsParkedAt(0 , 0);
         assertTrue(user.equals(user1));
@@ -144,17 +164,13 @@ public class ParkingLotDetectionTest {
     @Test
     public void L_ParkingAttendantShouldParkCarsWhereMoreSpaceIsAvailable(){
         CarParking carParking = new CarParking(2);
-        Car car = new Car("car1", "BMW", "white", SMALLCAR);
-        User user = new User("Mahidhar1", car);
+        User user = createNormalUser("Mahidhar1" , "car1", "BMW", "white", SMALLCAR);
         user.parkCarAtIndex(0 , 0);
-        car = new Car("car2", "BMW", "white", SMALLCAR);
-        user = new User("Mahidhar2", car);
+        user = createNormalUser("Mahidhar2" , "car2", "BMW", "white", SMALLCAR);
         user.parkCarAtIndex(0 , 1);
-        car = new Car("car5", "BMW", "white", LARGECAR);
-        user = new User("Mahidhar5", car);
+        user = createNormalUser("Mahidhar5" , "car5", "BMW", "white", LARGECAR);
         user.parkCarAtIndex(1 , 5);
-        car = new Car("car3", "BMW", "white", LARGECAR);
-        user = new User("Mahidhar3", car);
+        user = createNormalUser("Mahidhar3" , "car3", "BMW", "white", LARGECAR);
         new ParkingAttendant().parkUserLargeCarAtMoreSpaceAvailable(user);
         User user1 = CarParking.getCarUserDetailsParkedAt(1 , 6);
         System.out.println(Arrays.toString(CarParking.getMyCarParkingPosition("Mahidhar3", "car3")));
@@ -165,20 +181,16 @@ public class ParkingLotDetectionTest {
     @Test
     public void M_GetAllThePositionsOfTheSpecificColorCarDetails(){
         CarParking carParking = new CarParking(2);
-        Car car = new Car("car1", "BMW", "black", SMALLCAR);
-        User user = new User("Mahidhar1", car);
+        User user = createNormalUser("Mahidhar1" , "car1", "BMW", "black", SMALLCAR);
         user.parkCarAtIndex(0 , 0);
-        car = new Car("car2", "BMW", "white", SMALLCAR);
-        user = new User("Mahidhar2", car);
+        user = createNormalUser("Mahidhar2" , "car2", "BMW", "white", SMALLCAR);
         user.parkCarAtIndex(0 , 1);
-        car = new Car("car5", "BMW", "white", LARGECAR);
-        user = new User("Mahidhar5", car);
+        user = createNormalUser("Mahidhar5" , "car5", "BMW", "white", LARGECAR);
         user.parkCarAtIndex(1 , 5);
-        car = new Car("car3", "BMW", "white", LARGECAR);
-        user = new User("Mahidhar3", car);
+        user = createNormalUser("Mahidhar3" , "car3", "BMW", "white", LARGECAR);
         new ParkingAttendant().parkUserCar(user);
         PoliceOfficer policeOfficer =  new PoliceOfficer();
-        ArrayList<User> allWhiteColoredUserCars = policeOfficer.getAllSpecificColorCarUsers("white");
+        ArrayList<User> allWhiteColoredUserCars = policeOfficer.getAllSpecificColorCarUsers(CarParking.multipleParkingLots , "white");
         System.out.println(allWhiteColoredUserCars);
         ArrayList<int[]> positions = policeOfficer.getAllPositionsOfUsers(allWhiteColoredUserCars);
 //        for(int[]a : positions) {
@@ -190,20 +202,16 @@ public class ParkingLotDetectionTest {
     @Test
     public void N_GetAllCarsByPassingCarNameAndColorAsArguments(){
         CarParking carParking = new CarParking(2);
-        Car car = new Car("car1", "Toyata", "white", SMALLCAR);
-        User user = new User("Mahidhar1", car);
+        User user = createNormalUser("Mahidhar1" , "car1", "Toyata", "white", SMALLCAR);
         user.parkCarAtIndex(0 , 0);
-        car = new Car("car2", "BMW", "blue", SMALLCAR);
-        user = new User("Mahidhar2", car);
+        user = createNormalUser("Mahidhar2" , "car2", "BMW", "blue", SMALLCAR);
         user.parkCarAtIndex(0 , 1);
-        car = new Car("car5", "Toyata", "white", LARGECAR);
-        user = new User("Mahidhar5", car);
+        user = createNormalUser("Mahidhar5" , "car5", "Toyata", "white", LARGECAR);
         user.parkCarAtIndex(1 , 5);
-        car = new Car("car3", "Toyata", "blue", LARGECAR);
-        user = new User("Mahidhar3", car);
+        user = createNormalUser("Mahidhar3" , "car3", "Toyata", "blue", LARGECAR);
         new ParkingAttendant().parkUserCar(user);
         PoliceOfficer policeOfficer =  new PoliceOfficer();
-        Map<int[] , User> filteredUsersByPositions = policeOfficer.getAllUserCarsByCompanyAndColor("Toyata" , "blue");
+        Map<int[] , User> filteredUsersByPositions = policeOfficer.getAllUserCarsByCompanyAndColor(CarParking.multipleParkingLots , "Toyata" , "blue");
         assertTrue(filteredUsersByPositions.containsValue(user));
     }
     /*
@@ -213,17 +221,11 @@ public class ParkingLotDetectionTest {
      */
     public void fillTheParkingLotWithCars(){
         CarParking carParking = new CarParking(3 , 1);
-        //user 1
-        Car car = new Car("car1", "BMW", "white", LARGECAR);
-        User user = new User("Mahidhar1", car);
+        User user = createNormalUser("Mahidhar1" , "car1", "BMW", "white", LARGECAR);
         assertParkCar(user, "Mahidhar1", "car1");
-        //user 2
-        car = new Car("car2", "Benze", "white", SMALLCAR);
-        user = new User("Mahidhar2", car);
+        user = createNormalUser("Mahidhar2" , "car2", "Benze", "white", SMALLCAR);
         assertParkCar(user, "Mahidhar2", "car2");
-        //user 3
-        car = new Car("car3", "BMW", "black", LARGECAR);
-        user = new User("Mahidhar3", car);
+        user = createNormalUser("Mahidhar3" , "car3", "BMW", "black", LARGECAR);
         assertParkCar(user, "Mahidhar3", "car3");
     }
     /*
