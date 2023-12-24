@@ -1,4 +1,6 @@
-package com.bridgelabz.parkinglotdetection;
+package com.bridgelabz.parkinglotdetection.parkingspace;
+
+import com.bridgelabz.parkinglotdetection.user.User;
 
 import java.time.LocalDateTime;
 import java.util.ArrayList;

@@ -1,11 +1,13 @@
-package com.bridgelabz.parkinglotdetection;
+package com.bridgelabz.parkinglotdetection.user;
+
+import com.bridgelabz.parkinglotdetection.parkingspace.operations.ParkCar;
+import com.bridgelabz.parkinglotdetection.parkingspace.operations.UnParkCar;
+import com.bridgelabz.parkinglotdetection.vehicle.Car;
+import com.bridgelabz.parkinglotdetection.enums.UserType;
 
 import java.util.Objects;
-import java.util.OptionalInt;
-import java.util.concurrent.atomic.AtomicInteger;
 
-import static com.bridgelabz.parkinglotdetection.UserType.HANDICAP;
-import static com.bridgelabz.parkinglotdetection.UserType.NORMALPERSON;
+import static com.bridgelabz.parkinglotdetection.enums.UserType.NORMALPERSON;
 
 /*
  * @desc : Represents a User with a username and associated car information.
@@ -131,7 +133,7 @@ public class User {
      * @return : void
      */
     public void parkCarAtIndex(int i, int columnIndex) {
-        CarParking.parkCarAtIndex(i, columnIndex, this);
+        ParkCar.parkCarAtIndex(i, columnIndex, this);
     }
 
     /*
@@ -141,7 +143,7 @@ public class User {
      * @return : void
      */
     public void unParkMyCar() {
-        CarParking.removeMyCarFromParkingLot(username, getCar().getCarNo());
+        UnParkCar.removeMyCarFromParkingLot(username, getCar().getCarNo());
     }
 
     /*
@@ -151,7 +153,7 @@ public class User {
      * @return The user object after unparking the car
      */
     public User unParkMyCar(int rowIndex, int columnIndex) {
-        return CarParking.unParkMyCarByPosition(rowIndex, columnIndex);
+        return UnParkCar.unParkMyCarByPosition(rowIndex, columnIndex);
     }
 
 }

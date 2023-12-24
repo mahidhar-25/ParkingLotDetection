@@ -1,4 +1,12 @@
-package com.bridgelabz.parkinglotdetection;
+package com.bridgelabz.parkinglotdetection.parkingattendant;
+
+import com.bridgelabz.parkinglotdetection.parkingspace.operations.GetParkingCarDetails;
+import com.bridgelabz.parkinglotdetection.parkingspace.operations.ParkCar;
+import com.bridgelabz.parkinglotdetection.vehicle.Car;
+import com.bridgelabz.parkinglotdetection.parkingspace.CarParking;
+import com.bridgelabz.parkinglotdetection.user.User;
+import com.bridgelabz.parkinglotdetection.enums.CarType;
+import com.bridgelabz.parkinglotdetection.enums.UserType;
 
 import java.util.ArrayList;
 import java.util.OptionalInt;
@@ -34,11 +42,11 @@ public class ParkingAttendant {
     @return : void
      */
     private void parkLargeCarAtEnd(User user) {
-        ArrayList<ArrayList<Boolean>> carParkingPositions = CarParking.getCarParkingPositions();
+        ArrayList<ArrayList<Boolean>> carParkingPositions = GetParkingCarDetails.getCarParkingPositions();
         OptionalInt rowIndex = findLastRowIndex(carParkingPositions);
         rowIndex.ifPresent(i -> {
             int columnIndex = carParkingPositions.get(i).lastIndexOf(true);
-            CarParking.parkCarAtIndex(i, columnIndex , user);
+            ParkCar.parkCarAtIndex(i, columnIndex , user);
         });
     }
     /*
@@ -47,11 +55,11 @@ public class ParkingAttendant {
        @return : void
         */
     private void parkCarAtBegin(User user) {
-        ArrayList<ArrayList<Boolean>> carParkingPositions = CarParking.getCarParkingPositions();
+        ArrayList<ArrayList<Boolean>> carParkingPositions = GetParkingCarDetails.getCarParkingPositions();
         OptionalInt rowIndex = findFirstRowIndex(carParkingPositions);
         rowIndex.ifPresent(i -> {
             int columnIndex = carParkingPositions.get(i).indexOf(true);
-            CarParking.parkCarAtIndex(i, columnIndex , user);
+            ParkCar.parkCarAtIndex(i, columnIndex , user);
         });
     }
 
@@ -98,7 +106,7 @@ public class ParkingAttendant {
     @return : void
      */
     public void parkUserCarEvenly(User user) {
-        ArrayList<ArrayList<Boolean>> carParkingPositions = CarParking.getCarParkingPositions();
+        ArrayList<ArrayList<Boolean>> carParkingPositions = GetParkingCarDetails.getCarParkingPositions();
 
         int maxSize = 0;
         for (ArrayList<Boolean> carParkingPosition : carParkingPositions) {
@@ -108,7 +116,7 @@ public class ParkingAttendant {
         while(j < maxSize){
             for(int i=0;i<carParkingPositions.size();i++){
                 if(j< carParkingPositions.get(i).size() && CarParking.multipleParkingLots.get(i).getCarUsers().get(j) == null){
-                    CarParking.parkCarAtIndex(i , j , user);
+                    ParkCar.parkCarAtIndex(i , j , user);
                     return;
                 }
             }
@@ -143,9 +151,9 @@ public class ParkingAttendant {
     @return : void
      */
     public void parkUserLargeCarAtMoreSpaceAvailable(User user) {
-         int rowIndex = findMostAvailableSpaceRowIndex(CarParking.getCarParkingPositions());
-         ArrayList<Boolean> positionsAvailable = CarParking.getCarParkingPositions().get(rowIndex);
+         int rowIndex = findMostAvailableSpaceRowIndex(GetParkingCarDetails.getCarParkingPositions());
+         ArrayList<Boolean> positionsAvailable = GetParkingCarDetails.getCarParkingPositions().get(rowIndex);
         int columnIndex = getMostConsecutiveAvailableSpacePosition(positionsAvailable);
-        CarParking.parkCarAtIndex(rowIndex , columnIndex , user);
+        ParkCar.parkCarAtIndex(rowIndex , columnIndex , user);
     }
 }

@@ -1,4 +1,6 @@
-package com.bridgelabz.parkinglotdetection;
+package com.bridgelabz.parkinglotdetection.vehicle;
+
+import com.bridgelabz.parkinglotdetection.enums.CarType;
 
 import java.time.LocalDateTime;
 import java.util.Objects;

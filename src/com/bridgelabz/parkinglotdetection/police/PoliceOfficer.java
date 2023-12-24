@@ -1,4 +1,10 @@
-package com.bridgelabz.parkinglotdetection;
+package com.bridgelabz.parkinglotdetection.police;
+
+import com.bridgelabz.parkinglotdetection.enums.CarType;
+import com.bridgelabz.parkinglotdetection.enums.UserType;
+import com.bridgelabz.parkinglotdetection.parkingspace.ParkingLot;
+import com.bridgelabz.parkinglotdetection.parkingspace.operations.GetParkingCarDetails;
+import com.bridgelabz.parkinglotdetection.user.User;
 
 import java.time.Duration;
 import java.time.LocalDateTime;
@@ -56,7 +62,7 @@ public class PoliceOfficer {
     public ArrayList<int[]> getAllPositionsOfUsers(ArrayList<User> users) {
         ArrayList<Integer[]> carPosition = new ArrayList<>();
         return users.stream()
-                .map(user -> CarParking.getMyCarParkingPosition(user.getUsername(), user.getCar().getCarNo()))
+                .map(user -> GetParkingCarDetails.getMyCarParkingPosition(user.getUsername(), user.getCar().getCarNo()))
                 .collect(Collectors.toCollection(ArrayList::new));
     }
     /*
