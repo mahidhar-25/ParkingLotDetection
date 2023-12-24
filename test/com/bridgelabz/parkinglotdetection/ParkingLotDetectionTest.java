@@ -178,8 +178,12 @@ public class ParkingLotDetectionTest {
         new ParkingAttendant().parkUserCar(user);
         PoliceOfficer policeOfficer =  new PoliceOfficer();
         ArrayList<User> allWhiteColoredUserCars = policeOfficer.getAllSpecificColorCarUsers("white");
-        ArrayList<Integer[]> positions = policeOfficer.getAllPositionsOfUsers(allWhiteColoredUserCars);
-        assertEquals(3 , positions.size());
+        System.out.println(allWhiteColoredUserCars);
+        ArrayList<int[]> positions = policeOfficer.getAllPositionsOfUsers(allWhiteColoredUserCars);
+//        for(int[]a : positions) {
+//            System.out.println(Arrays.toString(a));
+//        }
+        assertArrayEquals(new int[]{1 , 5} , positions.get(1));
     }
 
     /*
