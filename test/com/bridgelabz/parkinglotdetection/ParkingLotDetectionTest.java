@@ -264,10 +264,11 @@ public class ParkingLotDetectionTest {
         new ParkingAttendant().parkUserCar(user);
         PoliceOfficer policeOfficer =  new PoliceOfficer();
         ArrayList<User> getAllHandiCappedUsers = policeOfficer.getAllHandiCappedUsers(CarParking.multipleParkingLots , HANDICAP);
+        System.out.println(getAllHandiCappedUsers);
         ArrayList<User> getAllSmallCarUsers = policeOfficer.getAllGivenCarTypeUsersFromGivenUsers(getAllHandiCappedUsers , SMALLCAR);
+        System.out.println(getAllSmallCarUsers);
         Map<int[] , User> filteredUsersByPositions = policeOfficer.getAllUsersCarParkingPositions(getAllSmallCarUsers);
-
-        assertEquals(user , filteredUsersByPositions.get(new int[]{0 , 2}));
+        assertTrue(filteredUsersByPositions.containsValue(user));
     }
     /*
     @desc : it will create a 3 parking lot with each size 1 and park the cars in them

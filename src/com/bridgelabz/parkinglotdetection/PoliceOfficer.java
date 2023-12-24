@@ -5,6 +5,7 @@ import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.LinkedHashMap;
 import java.util.Map;
+import java.util.Objects;
 import java.util.stream.Collectors;
 
 public class PoliceOfficer {
@@ -107,6 +108,42 @@ public class PoliceOfficer {
         }
 
         return filteredUser;
+    }
+    /*
+     * @desc Retrieves all users of a specific type across all parking lots.
+     * @param allParkingLots List of all parking lots to search through.
+     * @param userType The type of users to retrieve (e.g., handicapped).
+     * @return List of users matching the specified user type.
+     */
+    public ArrayList<User> getAllHandiCappedUsers(ArrayList<ParkingLot> allParkingLots, UserType userType) {
+        return allParkingLots.stream()
+                .flatMap(parkingLot -> parkingLot.getCarUsers().stream())
+                .filter(Objects::nonNull).filter(user -> user.getUserType().equals(userType))
+                .collect(Collectors.toCollection(ArrayList::new));
+    }
+    /*
+     * @desc Retrieves all users with a specific car type from a given list of users.
+     * @param users List of users to filter.
+     * @param carType The type of car to filter by.
+     * @return List of users having the specified car type.
+     */
+    public ArrayList<User> getAllGivenCarTypeUsersFromGivenUsers(ArrayList<User> users, CarType carType) {
+        return users.stream()
+                .filter(user -> user != null && user.getCar().getCarType().equals(carType))
+                .collect(Collectors.toCollection(ArrayList::new));
+    }
+    /*
+     * @desc Retrieves the parking positions of all users.
+     * @param users List of users to retrieve parking positions for.
+     * @return Map of parking positions mapped to corresponding users.
+     */
+    public Map<int[], User> getAllUsersCarParkingPositions(ArrayList<User> users) {
+        Map<int[], User> requiredCarsByPosition = new LinkedHashMap<>();
+        ArrayList<int[]>positions = getAllPositionsOfUsers(users);
+        for(int i=0;i< positions.size();i++){
+            requiredCarsByPosition.put(positions.get(i),users.get(i) );
+        }
+        return requiredCarsByPosition;
     }
 }
 

@@ -97,7 +97,7 @@ public class User {
         return "User{" +
                 "username='" + username + '\'' +
                 ", car=" + car +
-                '}';
+                "}\n";
     }
 
     /*

@@ -18,6 +18,7 @@ public class ParkingAttendant {
 
         if(user.getUserType() == UserType.HANDICAP){
             parkCarAtBegin(user);
+            return;
         }
         Car car = user.getCar();
         if(car.getCarType() == CarType.LARGECAR){
