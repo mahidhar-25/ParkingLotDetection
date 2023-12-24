@@ -126,6 +126,17 @@ public class ParkingLotDetectionTest {
         User user1 = CarParking.getCarUserDetailsParkedAt(2 , 0);
         assertTrue(user.equals(user1));
     }
+
+
+    @Test
+    public void K_HandicapCarShouldParkAtNearestPositionEvenItIsLargeCar(){
+        CarParking carParking = new CarParking(3);
+        Car car = new Car("car2", "BMW", "white", LARGECAR);
+        User user = new User("Mahidhar2", car , HANDICAP);
+        new ParkingAttendant().parkUserCar(user);
+        User user1 = CarParking.getCarUserDetailsParkedAt(0 , 0);
+        assertTrue(user.equals(user1));
+    }
     /*
     @desc : it will create a 3 parking lot with each size 1 and park the cars in them
     @params : no params
