@@ -1,5 +1,7 @@
 package com.bridgelabz.parkinglotdetection;
 
+import java.time.Duration;
+import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.LinkedHashMap;
 import java.util.Map;
@@ -81,6 +83,30 @@ public class PoliceOfficer {
         return allParkingLots.stream()
                 .filter(user -> user != null && user.getCar().getCompany().equalsIgnoreCase(carCompany))
                 .collect(Collectors.toCollection(ArrayList::new));
+    }
+    /*
+        @desc Retrieves users whose cars have been parked for longer than the provided duration.
+        @param multipleParkingLots A list of parking lots to search for users.
+        @param providedTime The duration threshold in seconds to filter parked users.
+        @return An ArrayList of users whose cars have been parked for more than the provided duration.
+    */
+    public ArrayList<User> getAllCarUserWhoGotParkedMoreThanGivenTime(ArrayList<ParkingLot> multipleParkingLots, int providedTime) {
+        ArrayList<User> filteredUser = new ArrayList<>();
+        LocalDateTime currentTime = LocalDateTime.now();
+
+        for (ParkingLot parkingLot : multipleParkingLots) {
+            for (User user : parkingLot.getCarUsers()) {
+                if (user != null) {
+                    LocalDateTime parkingTime = user.getCar().getParkingTime();
+                    Duration duration = Duration.between(parkingTime, currentTime);
+                    if (duration.toSeconds() > providedTime) {
+                        filteredUser.add(user);
+                    }
+                }
+            }
+        }
+
+        return filteredUser;
     }
 }
 
